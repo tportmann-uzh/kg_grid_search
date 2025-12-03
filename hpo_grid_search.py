@@ -59,7 +59,7 @@ logger = None
 # ============================================================================
 
 MODELS = ['TransE', 'ComplEx', 'DistMult']
-N_TRIALS = 30
+N_TRIALS = 15
 OUTPUT_DIR = 'hpo_results'
 RANDOM_SEED = 42
 
@@ -141,7 +141,9 @@ def run_hpo_for_all_models(kg, models=MODELS, n_trials=N_TRIALS,
 
             logger.info(f"HPO completed in {duration:.1f}s")
 
-            hpo_result.save_to_directory(output_dir)
+            model_output_dir = Path(output_dir) / model_name
+            model_output_dir.mkdir(parents=True, exist_ok=True)
+            hpo_result.save_to_directory(model_output_dir)
 
         except Exception as e:
             print(f"\n✗ ERROR with {model_name}: {str(e)}")
