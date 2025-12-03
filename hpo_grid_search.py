@@ -4,14 +4,13 @@ Runs grid search for multiple models and saves all metrics.
 """
 
 import logging
+import pickle
 from datetime import datetime
 from pathlib import Path
 
 import torch
 from pykeen.hpo import hpo_pipeline
 from pykeen.triples import TriplesFactory
-
-from kg_utils import build_kg
 
 
 # ============================================================================
@@ -58,8 +57,8 @@ logger = None
 # Configuration
 # ============================================================================
 
-MODELS = ['TransE', 'ComplEx', 'DistMult']
-N_TRIALS = 15
+MODELS = ['TransE']
+N_TRIALS = 30
 OUTPUT_DIR = 'hpo_results'
 RANDOM_SEED = 42
 
@@ -172,7 +171,7 @@ if __name__ == "__main__":
     logger.info(f"Random seed: {RANDOM_SEED}")
     logger.info("")
 
-    kg = build_kg(include_is_a=True)
+    kg = pickle.load(open("./data/is_associated_with_only_leafs.pkl", "rb"))
 
     try:
         run_hpo_for_all_models(
