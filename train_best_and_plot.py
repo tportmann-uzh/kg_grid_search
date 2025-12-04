@@ -83,13 +83,13 @@ def train_best_model():
         training=training,
         testing=testing,
         validation=validation,
-        model="TransE",
+        model="DistMult",
         model_kwargs=dict(
-            embedding_dim=144,
+            embedding_dim=64,
         ),
         training_kwargs=dict(
-            num_epochs=25,
-            batch_size=2048,
+            num_epochs=200,
+            batch_size=64,
             use_tqdm_batch=False,
             callbacks=[tracker]
         ),
@@ -137,7 +137,7 @@ def plot_best_model(epoch_df, val_df):
     ax2.tick_params(axis="y", labelcolor="tab:orange")
     ax2.set_ylim(0, 1.0)
 
-    plt.title("TransE: Training Loss vs. Validation Hits@10", fontsize=14, fontweight='bold')
+    plt.title("DistMult: Training Loss vs. Validation Hits@10", fontsize=14, fontweight='bold')
     fig.tight_layout()
     plt.savefig('best_model_plot.png', dpi=300, bbox_inches='tight')
     print("\n✓ Plot saved to best_model_plot.png")
