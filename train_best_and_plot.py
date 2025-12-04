@@ -20,7 +20,7 @@ class MetricTracker(TrainingCallback):
         super().__init__()
         self.validation_triples = validation_triples
         self.eval_frequency = eval_frequency
-        self.evaluator = RankBasedEvaluator(filtered=False)
+        self.evaluator = RankBasedEvaluator()
 
         self.batch_losses = []
         self.batch_epochs = []
@@ -88,7 +88,7 @@ def train_best_model():
             embedding_dim=144,
         ),
         training_kwargs=dict(
-            num_epochs=25,
+            num_epochs=200,
             batch_size=2048,
             use_tqdm_batch=False,
             callbacks=[tracker]
